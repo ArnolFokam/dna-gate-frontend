@@ -1,13 +1,42 @@
-import React from 'react';
+import 'react-toastify/dist/ReactToastify.min.css';
+import 'tippy.js/dist/tippy.css'; 
+import './assets/css/tailwind.output.css';
+
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Provider } from 'react-redux';
+
 import App from './App';
+import { Windmill } from '@windmill/react-ui';
+import { ToastContainer } from 'react-toastify';
+
+import { SidebarProvider } from './context/SidebarContext';
+import getStore from './config/store';
+import { bindActionCreators } from 'redux';
+import setupAxiosInterceptors from './config/axios-interceptor';
+import { clearAuthentication } from './reducers/authentication.reducer';
+import { LoadingBar } from 'react-redux-loading-bar';
+import ThemedSuspense from './components/ThemedSuspense';
 import reportWebVitals from './reportWebVitals';
 
+const store = getStore();
+
+const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
+setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <SidebarProvider>
+    <Suspense fallback={<ThemedSuspense />}>
+      <Provider store={store}>
+        <Windmill usePreferences>
+          <LoadingBar />
+          <App />
+          <ToastContainer />
+        </Windmill>
+      </Provider>
+    </Suspense>
+  </SidebarProvider>,
   document.getElementById('root')
 );
 
