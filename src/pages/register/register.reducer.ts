@@ -22,7 +22,7 @@ export const handleRegister = createAsyncThunk(
         last_name: string;
         email: string;
         password: string;
-    }) => await axios.post<any>('api/auth/register', data),
+    }) => await axios.post<any>('/auth/register', data),
     { serializeError: serializeAxiosError }
 );
 
