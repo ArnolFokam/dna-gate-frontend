@@ -1,8 +1,3 @@
-export const AUTHORITIES = {
-  ADMIN: 'ROLE_ADMIN',
-  USER: 'ROLE_USER',
-};
-
 export const messages = {
   DATA_ERROR_ALERT: 'Internal Error',
 };
@@ -16,4 +11,4 @@ export const APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT = '0,0.[00]';
 
 export const AUTH_TOKEN_KEY = 'token';
 
-export const SERVER_API_URL = "http://127.0.0.1:8000/api"
+export const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL
