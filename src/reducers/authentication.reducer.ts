@@ -22,8 +22,8 @@ export type AuthenticationState = Readonly<typeof initialState>;
 
 // Actions
 
-export const getSession = (): AppThunk => (dispatch, getState) => {
-    dispatch(getAccount());
+export const getSession = (): AppThunk => async (dispatch, getState) => {
+    await dispatch(getAccount());
 };
 
 export const getAccount = createAsyncThunk('authentication/get_account', async () => axios.get<any>('users/me'), {
@@ -130,7 +130,6 @@ export const AuthenticationSlice = createSlice({
             }))
             .addCase(getAccount.fulfilled, (state, action) => {
                 const isAuthenticated = action.payload && action.payload.data
-                // for now, we will not implement account activation && action.payload.data.activated;
                 return {
                     ...state,
                     isAuthenticated,
