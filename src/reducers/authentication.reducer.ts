@@ -24,7 +24,6 @@ export type AuthenticationState = Readonly<typeof initialState>;
 
 export const getSession = (): AppThunk => (dispatch, getState) => {
     dispatch(getAccount());
-    dispatch(getApiKey());
 };
 
 export const getAccount = createAsyncThunk('authentication/get_account', async () => axios.get<any>('users/me'), {
@@ -62,8 +61,9 @@ export const login: (username: string, password: string) => AppThunk =
             if (data && data["token_type"] === 'bearer') {
                 const jwt = data["access_token"];
                 Storage.session.set(AUTH_TOKEN_KEY, jwt);
+                dispatch(getSession());
+                dispatch(getApiKey());
             }
-            dispatch(getSession());
         };
 
 export const clearAuthToken = () => {
