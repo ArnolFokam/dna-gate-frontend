@@ -138,6 +138,8 @@ export const AuthenticationSlice = createSlice({
             })
             .addCase(authenticate.pending, state => {
                 state.loading = true;
+                state.loginError = false;
+                state.loginSuccess = false;
             })
             .addCase(getAccount.pending, state => {
                 state.loading = true;
