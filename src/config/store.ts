@@ -2,8 +2,6 @@ import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import reducer from 'src/reducers';
-import { loadingBarMiddleware } from 'react-redux-loading-bar';
-import notificationMiddleware from './notification-middleware';
 
 const store = configureStore({
   reducer,
@@ -11,9 +9,9 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these field paths in all actions
-        ignoredActionPaths: ['payload.config', 'payload.request', 'error', 'meta.arg'],
+        ignoredActionPaths: [ 'payload.request', 'error'],
       },
-    }).concat(notificationMiddleware, loadingBarMiddleware()),
+    }).concat(),
 });
 
 const getStore = () => store;

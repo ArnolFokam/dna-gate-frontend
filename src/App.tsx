@@ -10,7 +10,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getSession());
+      dispatch(getSession());
   }, [dispatch]);
   
   return (

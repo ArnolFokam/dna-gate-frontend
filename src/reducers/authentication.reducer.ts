@@ -24,6 +24,7 @@ export type AuthenticationState = Readonly<typeof initialState>;
 
 export const getSession = (): AppThunk => async (dispatch, getState) => {
     await dispatch(getAccount());
+    await dispatch(getApiKey());
 };
 
 export const getAccount = createAsyncThunk('authentication/get_account', async () => axios.get<any>('users/me'), {
@@ -62,7 +63,6 @@ export const login: (username: string, password: string) => AppThunk =
                 const jwt = data["access_token"];
                 Storage.session.set(AUTH_TOKEN_KEY, jwt);
                 dispatch(getSession());
-                dispatch(getApiKey());
             }
         };
 
