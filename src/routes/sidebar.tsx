@@ -25,6 +25,11 @@ const routes: IRoute[] = [
     icon: 'OutlineCogIcon', // the component being exported from icons/index.js
     name: 'API Key Management', // name that appear in Sidebar
   },
+  {
+    path: '/app/infos', // the url
+    icon: 'OutlinePersonIcon', // the component being exported from icons/index.js
+    name: 'Bio Infos Management', // name that appear in Sidebar
+  },
 ];
 
 export type {IRoute};

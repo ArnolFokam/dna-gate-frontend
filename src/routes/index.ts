@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import BiometricInfosManagement from 'src/pages/biometric-infos/BiometricInfosManagement';
 
 // use lazy for better code splitting, a.k.a. load faster
 const Dashboard = lazy(() => import('src/pages/Dashboard'));
@@ -22,6 +23,10 @@ const routes = [
   {
     path: '/keys',
     component: ApiKeyManagement,
+  },
+  {
+    path: '/infos',
+    component: BiometricInfosManagement,
   }
 ];
 
