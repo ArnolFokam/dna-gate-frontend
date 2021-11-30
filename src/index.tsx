@@ -15,7 +15,6 @@ import getStore from './config/store';
 import { bindActionCreators } from 'redux';
 import setupAxiosInterceptors from './config/axios-interceptor';
 import { clearAuthentication } from './reducers/authentication.reducer';
-import { LoadingBar } from 'react-redux-loading-bar';
 import ThemedSuspense from './components/ThemedSuspense';
 import reportWebVitals from './reportWebVitals';
 
@@ -30,7 +29,6 @@ ReactDOM.render(
     <Suspense fallback={<ThemedSuspense />}>
       <Provider store={store}>
         <Windmill usePreferences>
-          <LoadingBar />
           <App />
           <ToastContainer />
         </Windmill>
