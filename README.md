@@ -39,6 +39,6 @@ Project Link: [https://github.com/ArnolFokam/dna-gate](https://github.com/ArnolF
 
 ## Acknowledgments
 
-* [Modzy](https://www.modzy.com/) (Computer Vision pre-trained models)
+* [WindmillUI](https://windmillui.com/dashboard-react) (Admin dashboard)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
