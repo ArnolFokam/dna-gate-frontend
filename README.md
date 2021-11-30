@@ -15,7 +15,7 @@ Check this [link](https://github.com/ArnolFokam/dna-gate) for more information.
 1. Clone the repository
 2. Enter the project's directory and edit the .env file as follows
 ```
-REACT_APP_SERVER_API_URL=link to the api backend suffixed with ```/api``` (eg. http://localhost:8000/api)
+REACT_APP_SERVER_API_URL=link to the api backend suffixed with */api* (eg. http://localhost:8000/api)
 PORT=5000
 ```
 4. Run ```npm install```
