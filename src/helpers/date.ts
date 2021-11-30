@@ -5,6 +5,6 @@ export const getLastSevenDays = (date: Date) => {
 
         var lastDate = new Date(date);
         lastDate.setDate(date.getDate() - v);
-        return moment(lastDate.toDateString()).format('DD MMM');
+        return moment(lastDate).format('DD MMM');
     });
 }

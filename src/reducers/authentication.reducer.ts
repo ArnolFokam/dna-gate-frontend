@@ -4,7 +4,6 @@ import { AppThunk } from "src/config/store";
 import { serializeAxiosError } from "./utils";
 import { Storage } from "src/helpers/storage";
 import { AUTH_TOKEN_KEY } from "src/config/constants";
-import { getApiKey } from "./api-key.reducer";
 
 export const initialState = {
     loading: false,
@@ -24,7 +23,6 @@ export type AuthenticationState = Readonly<typeof initialState>;
 
 export const getSession = (): AppThunk => async (dispatch, getState) => {
     await dispatch(getAccount());
-    await dispatch(getApiKey());
 };
 
 export const getAccount = createAsyncThunk('authentication/get_account', async () => axios.get<any>('users/me'), {

@@ -9,9 +9,9 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these field paths in all actions
-        ignoredActionPaths: [ 'payload.request', 'error'],
+        ignoredActionPaths: ['payload.config', 'payload.request', 'error', 'meta.arg'],
       },
-    }).concat(),
+    }),
 });
 
 const getStore = () => store;

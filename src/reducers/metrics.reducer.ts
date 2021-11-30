@@ -23,27 +23,15 @@ export const getAllMetrics = (): AppThunk => (dispatch, getState) => {
 
 }
 
-export const getUsageHistory = createAsyncThunk('metrics/fetch_usageHistory', async (key: string) => axios.get<any>('/biometrics/metrics/usage-history', {
-    headers: {
-        "Api-Key": key
-    },
-}), {
+export const getUsageHistory = createAsyncThunk('metrics/fetch_usageHistory', async (key: string) => axios.get<any>('/biometrics/metrics/usage-history'), {
     serializeError: serializeAxiosError,
 });
 
-export const getTotalUsage = createAsyncThunk('metrics/fetch_totalUsage', async (key: string) => axios.get<any>('/biometrics/metrics/total-usage', {
-    headers: {
-        "Api-Key": key
-    },
-}), {
+export const getTotalUsage = createAsyncThunk('metrics/fetch_totalUsage', async (key: string) => axios.get<any>('/biometrics/metrics/total-usage'), {
     serializeError: serializeAxiosError,
 });
 
-export const getInfosRatio = createAsyncThunk('metrics/fetch_infosRatio', async (key: string) => axios.get<any>('/biometrics/metrics/infos-ratio', {
-    headers: {
-        "Api-Key": key
-    },
-}), {
+export const getInfosRatio = createAsyncThunk('metrics/fetch_infosRatio', async (key: string) => axios.get<any>('/biometrics/metrics/infos-ratio'), {
     serializeError: serializeAxiosError,
 });
 
