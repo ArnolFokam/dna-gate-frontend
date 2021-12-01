@@ -18,7 +18,6 @@ const setupAxiosInterceptors = (onUnauthenticated: any) => {
   const onResponseError = (err: any) => {
     const status = err.status || (err.response ? err.response.status : 0);
     if ((status === 403 || status === 401) && !err.config.url.endsWith("biometrics/info")) {
-      console.log(err.response);
       onUnauthenticated();
     }
     return Promise.reject(err);

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import PageTitle from 'src/components/Typography/PageTitle';
 import SectionTitle from 'src/components/Typography/SectionTitle';
 import { useAppDispatch, useAppSelector } from 'src/config/store';
-import { EditIcon, TrashIcon } from 'src/icons';
+import { TrashIcon } from 'src/icons';
 import { IBiometricInfo } from 'src/models/biometric-info.model';
 import { getApiKey } from 'src/reducers/api-key.reducer';
 import { deleteInfo, getInfos } from './biometric-infos.reducer';
@@ -13,10 +13,11 @@ function BiometricInfoManagement() {
   const dispatch = useAppDispatch();
   const [pageTable, setPageTable] = useState(1);
   const [dataTable, setDataTable] = useState<IBiometricInfo[]>([]);
-  const [info, setInfo] = useState<IBiometricInfo>();
+  // const [info, setInfo] = useState<IBiometricInfo>();
 
   const apiKey = useAppSelector(state => state.apikey.key);
   const infos = useAppSelector(state => state.biometrics.infos);
+  const loading = useAppSelector(state => state.biometrics.loading);
 
   // pagination setup
   const resultsPerPage = 10;
@@ -67,17 +68,16 @@ function BiometricInfoManagement() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center space-x-4">
-                    <Button layout="link" size="small" aria-label="Edit">
-                      <EditIcon className="w-5 h-5" aria-hidden="true" />
-                    </Button>
-                    <Button layout="link" size="small" aria-label="Delete">
-                      <TrashIcon className="w-5 h-5" aria-hidden="true"  onClick={async () => {
+                    <Button className="disabled:opacity-50" disabled={loading} layout="link" size="small" aria-label="Delete">
+                      <TrashIcon className="w-5 h-5" aria-hidden="true" onClick={async () => {
+                        if (!loading) {
                           await dispatch(deleteInfo({
-                          id: info.id,
-                          apiKey
-                        }));
-                        await dispatch(getInfos(apiKey));
-                      }}/>
+                            id: info.id,
+                            apiKey
+                          }));
+                          await dispatch(getInfos(apiKey));
+                        }
+                      }} />
                     </Button>
                   </div>
                 </TableCell>
@@ -86,7 +86,7 @@ function BiometricInfoManagement() {
           </TableBody>
         </Table>
         <TableFooter>
-        <Pagination
+          <Pagination
             totalResults={totalResults}
             resultsPerPage={resultsPerPage}
             onChange={onPageChangeTable}
