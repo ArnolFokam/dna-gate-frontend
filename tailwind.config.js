@@ -13,4 +13,8 @@ module.exports = windmill({
             },
         },
     },
+    variants: {
+        opacity: ({ after }) => after(['disabled']),
+        extend: {},
+      },
 })

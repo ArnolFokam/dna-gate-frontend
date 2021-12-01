@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Link, Redirect, RouteComponentProps } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link, Redirect, RouteComponentProps } from 'react-router-dom';
+import { ReactComponent as Hero } from 'src/assets/images/security-pana.svg';
 
 // import ImageLight from '../assets/img/login-office.jpeg'
 // import ImageDark from '../assets/img/login-office-dark.jpeg'
@@ -11,31 +12,36 @@ import { useAppDispatch, useAppSelector } from 'src/config/store';
 import { toast } from 'react-toastify';
 
 export const Login = (props: RouteComponentProps<any>) => {
-  const [showErrorAlert, setShowErrorAlert]  = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector(state => state.authentication.isAuthenticated);
   const loginError = useAppSelector(state => state.authentication.loginError);
   const loginSuccess = useAppSelector(state => state.authentication.loginSuccess);
+  const loading = useAppSelector(state => state.authentication.loading);
+
+  useEffect(() => {
+    if (loading) setShowErrorAlert(false);
+  }, [loading]);
 
   const handleLogin = ({
     email,
     password }) => dispatch(login(email, password));
 
-    useEffect(() => {
-      if (loginSuccess) {
-        toast.success("Successful authentication");
-      }
-    }, [loginSuccess]);
+  useEffect(() => {
+    if (loginSuccess) {
+      toast.success("Successful authentication");
+    }
+  }, [loginSuccess]);
 
-    useEffect(() => {
-      if (loginError) {
-        setShowErrorAlert(true);
-      }
-    }, [loginError]);
+  useEffect(() => {
+    if (loginError) {
+      setShowErrorAlert(true);
+    }
+  }, [loginError]);
 
   const { location } = props;
   const { from } = (location.state as any) || { from: { pathname: '/', search: location.search } };
-  
+
   if (isAuthenticated) {
     if (from.pathname.startsWith('/app')) {
       return <Redirect to={from} />;
@@ -45,22 +51,18 @@ export const Login = (props: RouteComponentProps<any>) => {
   }
 
   return (
-    <div className="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+    <div className="bg-gradient-to-r from-indigo-400 to-purple-500 flex items-center min-h-screen p-6 ">
       <div className="flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
         <div className="flex flex-col overflow-y-auto md:flex-row">
-          <div className="h-32 md:h-auto md:w-1/2">
-            {/*<img
-              aria-hidden="true"
-              className="object-cover w-full h-full dark:hidden"
-              src={ImageLight}
-              alt="Office"
-            />
-            <img
-              aria-hidden="true"
-              className="hidden object-cover w-full h-full dark:block"
-              src={ImageDark}
-              alt="Office"
-            />*/}
+          <div className="px-12 p-28 h-32 md:h-auto md:w-1/2 flex flex-col justify-center align-center">
+              <Hero className="mx-auto" />
+            <h4 className="text-center text-4lg tracking-tight font-extrabold text-gray-900 sm:text-5lg md:text-6lg">
+              <span className=" xl:text-3lg text-2xl">Welcome</span>&nbsp;&nbsp;
+              <span className="text-purple-700  xl:text-3lg text-2xl">back!</span>
+            </h4>
+            <p className="mt-1 text-base text-center text-gray-500 sm:mt-3 sm:text-md sm:max-w-sm sm:mx-auto md:mt-3 md:text-sm lg:mx-0">
+              We are happy to see you again. Smash that login button, let's see what you've missed!
+            </p>
           </div>
           <main className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
@@ -109,7 +111,7 @@ export const Login = (props: RouteComponentProps<any>) => {
                       <Field component={WindmillInput} type="password" name="password" placeholder="***************" autoComplete="true" />
                     </Label>
 
-                    <Button tag={"button"} block className="mt-4" type="submit" disabled={isSubmitting}>
+                    <Button tag={"button"} block className="mt-4" type="submit" disabled={isSubmitting  || loading}>
                       Login
                     </Button>
                   </Form>}
