@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { serializeAxiosError } from 'src/reducers/utils';
 
@@ -38,11 +38,13 @@ export const RegisterSlice = createSlice({
         builder
             .addCase(handleRegister.pending, (state, action) => {
                 state.loading = true;
+                state.registrationSuccess = false;
+                state.registrationFailure = false;
             })
             .addCase(handleRegister.rejected, (state, action) => ({
                 ...initialState,
                 registrationFailure: true,
-                errorMessage: action.error.message!,
+                errorMessage: ((action.error as AxiosError).response && (action.error as AxiosError).response!.data.detail) || action.error.message!,
             }))
             .addCase(handleRegister.fulfilled, (state, action) => ({
                 ...initialState,

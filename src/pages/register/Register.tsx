@@ -15,6 +15,10 @@ export const Register = () => {
   const dispatch = useAppDispatch();
   const { push } = useHistory();
   const loading = useAppSelector(state => state.register.loading);
+  const registrationFailure = useAppSelector(state => state.register.registrationFailure);
+  const errorMessage = useAppSelector(state => state.register.errorMessage);
+  const successMessage = useAppSelector(state => state.register.successMessage);
+  const registrationSuccess = useAppSelector(state => state.register.registrationSuccess);
 
   useEffect(
     () => () => {
@@ -36,9 +40,6 @@ export const Register = () => {
     }));
   };
 
-  const successMessage = useAppSelector(state => state.register.successMessage);
-  const registrationSuccess = useAppSelector(state => state.register.registrationSuccess);
-
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage);
@@ -50,6 +51,12 @@ export const Register = () => {
       push("/login");
     }
   }, [registrationSuccess, push]);
+
+  useEffect(() => {
+    if (registrationFailure && errorMessage) {
+      toast.error(errorMessage);
+    }
+  }, [registrationFailure, errorMessage]);
 
   return (
     <div className="bg-gradient-to-r from-indigo-400 to-purple-500  flex items-center min-h-screen p-6 ">
